@@ -1,0 +1,49 @@
+<form [formGroup]="signInForm" (ngSubmit)="onSignUp()" class="needs-validation">
+        <div class="form-row">
+            <label for="input-email">email</label>
+            <input type="text" formControlName="email" id="input-email" class="form-control" placeholder="email" name="input-email">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="d-block invalid-feedback">
+                <div *ngIf="email.errors.required">
+                    This field is required 
+                </div>
+                <div *ngIf="email.errors.email">
+                    the E-mail format is incorrect.
+                </div>
+                <div *ngIf="email.errors.emailTaken">
+                    That E-mail already exists.
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="input-password">password</label>
+            <input type="password" formControlName="password" id="input-password" class="form-control" placeholder="password" name="input-password">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="d-block invalid-feedback">
+                <div *ngIf="password.errors.required">
+                    This field is required
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="input-repeat-password">repeat password</label>
+            <input type="password" formControlName="repeat-password" id="input-repeat-password" class="form-control" placeholder="password" name="input-repeat-password">
+            <div *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)" class="d-block invalid-feedback">
+                <div *ngIf="repeatPassword.errors.required">
+                    This field is required
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-row">
+            <input type="submit" [disabled]="!signInForm.valid" class="btn btn-primary" value="Sign UP!">
+        </div>
+        
+        <div *ngIf="passwordsDoNotMatch()" class="d-block invalid-feedback">
+            The passwords must match!
+        </div>
+
+        <div *ngIf="errorWhileSigning" class="d-block invalid-feedback">
+            An error happened while signing up
+        </div>
+    
+    </form>
+    

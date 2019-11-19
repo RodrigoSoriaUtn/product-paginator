@@ -1,7 +1,7 @@
 <form [formGroup]="signInForm" (ngSubmit)="onSignIn()" class="needs-validation">
     <div class="form-row">
         <label for="input-email">email</label>
-        <input type="text" formControlName="email" id="input-email" class="form-control" placeholder="email", name="input-email">
+        <input type="text" formControlName="email" id="input-email" class="form-control" placeholder="email" name="input-email">
         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="d-block invalid-feedback">
             <div *ngIf="email.errors.required">
                 This field is required 

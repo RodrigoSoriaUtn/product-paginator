@@ -22,7 +22,7 @@ export class AuthGuardGuard implements CanActivate {
     
     console.log("Not logged user. Redirecting to login")
     this.userService.urlToRedirect = urlToRedirect
-    this.router.navigateByUrl("login")
+    this.router.navigateByUrl("signin")
     return false
   }
   

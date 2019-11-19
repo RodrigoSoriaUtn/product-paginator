@@ -4,12 +4,16 @@ import { ProductListComponent } from '../components/product-list/product-list.co
 import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { ProductDetailComponent } from '../components/product-detail/product-detail.component';
 import { AuthGuardGuard } from '../security/auth-guard.guard';
+import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
+import { SignUpComponent } from '../components/sign-up/sign-up.component';
 
 const appRoutes : Routes = [
   {path: 'products', component: ProductListComponent, canActivate : [AuthGuardGuard]},
   {path: 'products/:id', component: ProductDetailComponent, canActivate : [AuthGuardGuard]},
   {path: '', redirectTo: 'products', pathMatch: 'full'},
-  {path: 'signing', component: SignInComponent}
+  {path: 'signin', component: SignInComponent},
+  {path: 'signup', component: SignUpComponent},
+  {path: '**', component: PageNotFoundComponent}
 ]
 
 @NgModule({

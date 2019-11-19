@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/auth/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +14,7 @@ export class SignInComponent implements OnInit {
   signInForm : FormGroup
   errorWhileSigning = false
 
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService, private router : Router) { }
 
   ngOnInit() {
     this.signInForm = new FormGroup({
@@ -33,7 +34,9 @@ export class SignInComponent implements OnInit {
     let password = this.signInForm.get('password').value
     this.userService.signIn(new User(email, password)).subscribe(
       (response : string) => {
+        this.errorWhileSigning = false
         this.userService.saveToken(response)
+        this.redirectUserLogged()
       },
       error => {
         this.errorWhileSigning = true
@@ -41,12 +44,15 @@ export class SignInComponent implements OnInit {
     )
   }
 
-  get email() {
-    return this.signInForm.get('email')
+  redirectUserLogged() {
+    if (this.userService.urlToRedirect) {
+      this.router.navigateByUrl(this.userService.urlToRedirect)
+    } else {
+      this.router.navigateByUrl('products')
+    }
   }
 
-  get password() {
-    return this.signInForm.get('password')
-  }
+  get email() { return this.signInForm.get('email') }
+  get password() { return this.signInForm.get('password') }
 
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
@@ -10,6 +10,10 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductRowComponent } from './components/product-row/product-row.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ProductListOptionsSelectorComponent } from './components/product-list-options-selector/product-list-options-selector.component';
+import { AuthInterceptor } from './security/interceptors/auth-interceptor';
+import { ProductsPanelComponent } from './components/products-panel/products-panel.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
     ProductListComponent,
     ProductRowComponent,
     PageNotFoundComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    SignUpComponent,
+    ProductListOptionsSelectorComponent,
+    ProductsPanelComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -27,7 +34,13 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
     BrowserModule, 
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
