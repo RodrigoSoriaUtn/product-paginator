@@ -7,6 +7,7 @@ import { User } from '../models/auth/user';
 })
 export class UserService {
 
+  urlToRedirect : string = ''
   private apiUrl = "https://utn2019-avanzada2-tp9.herokuapp.com"
   private httpOptions = {
     headers : new HttpHeaders({
